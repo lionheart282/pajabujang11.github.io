@@ -70,56 +70,6 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        /* Modal styles */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            max-width: 800px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #4a5568; /* gray-700 */
-        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -130,7 +80,7 @@
                 <svg class="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 0v12h8V4H6z" clip-rule="evenodd"></path>
                 </svg>
-                <h1 class="text-2xl font-bold tracking-tight">Aksara Adil</h1>
+                <h1 class="text-2xl font-bold tracking-tight">Aksara Adil FISIP UM SUMBAR </h1>
                 <span class="text-xs bg-yellow-400 text-blue-900 px-2 py-1 rounded-full font-medium shadow">Media Independen</span>
             </div>
             <div>
@@ -154,48 +104,12 @@
                     <p class="text-lg font-medium">"Informasi terverifikasi, akurat, dan berimbang"</p>
                 </div>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <a href="#" onclick="openLatestNews()" class="bg-white text-blue-700 px-8 py-4 rounded-full font-bold hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <a href="#berita-terbaru" class="bg-white text-blue-700 px-8 py-4 rounded-full font-bold hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                         Baca Berita Terbaru
                         <svg class="w-5 h-5 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                         </svg>
                     </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Info Section -->
-    <div class="bg-blue-50 py-8">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold text-center text-blue-800 mb-6">Info Penting</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
-                    <svg class="w-8 h-8 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800">Transparansi Data</h3>
-                        <p class="text-gray-600 text-sm">Kami berkomitmen untuk menyajikan data yang transparan dan dapat dipertanggungjawabkan.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
-                    <svg class="w-8 h-8 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800">Verifikasi Fakta</h3>
-                        <p class="text-gray-600 text-sm">Setiap berita melalui proses verifikasi fakta yang ketat sebelum dipublikasikan.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md flex items-start space-x-4">
-                    <svg class="w-8 h-8 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                    </svg>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800">Partisipasi Pembaca</h3>
-                        <p class="text-gray-600 text-sm">Kami mendorong pembaca untuk berpartisipasi aktif dalam diskusi dan memberikan masukan.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -307,126 +221,13 @@
             <div class="flex flex-col md:flex-row justify-between items-center text-sm text-blue-300">
                 <p>© <span id="currentYear"></span> Aksara Adil. Semua hak dilindungi.</p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#" id="privacyPolicyLink" class="hover:text-white transition-colors">Kebijakan Privasi</a>
-                    <a href="#" id="termsConditionsLink" class="hover:text-white transition-colors">Syarat & Ketentuan</a>
-                    <a href="#" id="aboutUsLink" class="hover:text-white transition-colors">Tentang Kami</a>
+                    <a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a>
+                    <a href="#" class="hover:text-white transition-colors">Tentang Kami</a>
                 </div>
             </div>
         </div>
     </footer>
-
-    <!-- Privacy Policy Modal -->
-    <div id="privacyPolicyModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('privacyPolicyModal')">&times;</button>
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">Kebijakan Privasi</h2>
-            <div class="prose max-w-none text-gray-700">
-                <p>Selamat datang di Kebijakan Privasi Aksara Adil. Kami sangat menghargai privasi Anda dan berkomitmen untuk melindungi informasi pribadi yang Anda berikan kepada kami.</p>
-                
-                <h3 class="text-xl font-semibold mt-6 mb-2">Informasi yang Kami Kumpulkan</h3>
-                <p>Kami mengumpulkan informasi dalam beberapa cara:</p>
-                <ul>
-                    <li><strong>Informasi yang Anda Berikan:</strong> Ini termasuk nama, alamat email, dan komentar yang Anda kirimkan melalui situs kami.</li>
-                    <li><strong>Data Otomatis:</strong> Kami dapat mengumpulkan data teknis seperti alamat IP, jenis browser, waktu akses, dan halaman yang Anda kunjungi untuk tujuan analitik dan peningkatan layanan.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Bagaimana Kami Menggunakan Informasi Anda</h3>
-                <p>Informasi yang kami kumpulkan digunakan untuk:</p>
-                <ul>
-                    <li>Menyediakan dan meningkatkan layanan kami.</li>
-                    <li>Membalas pertanyaan dan komentar Anda.</li>
-                    <li>Menganalisis penggunaan situs untuk pengembangan konten yang lebih baik.</li>
-                    <li>Memastikan keamanan situs kami.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Pembagian Informasi</h3>
-                <p>Kami tidak akan menjual, menyewakan, atau menukar informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali jika diwajibkan oleh hukum.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Keamanan Data</h3>
-                <p>Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses tidak sah, pengungkapan, perubahan, atau penghancuran.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Perubahan Kebijakan Privasi</h3>
-                <p>Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Setiap perubahan akan dipublikasikan di halaman ini. Kami mendorong Anda untuk meninjau kebijakan ini secara berkala.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Hubungi Kami</h3>
-                <p>Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini, silakan hubungi kami melalui halaman Kontak Kami.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Terms & Conditions Modal -->
-    <div id="termsConditionsModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('termsConditionsModal')">&times;</button>
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">Syarat & Ketentuan</h2>
-            <div class="prose max-w-none text-gray-700">
-                <p>Dengan mengakses dan menggunakan situs web Aksara Adil, Anda setuju untuk terikat oleh Syarat & Ketentuan ini. Jika Anda tidak setuju dengan bagian mana pun dari syarat dan ketentuan ini, Anda tidak boleh menggunakan situs web kami.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Penggunaan Konten</h3>
-                <ul>
-                    <li>Semua konten yang dipublikasikan di Aksara Adil, termasuk teks, gambar, grafik, dan video, adalah milik Aksara Adil atau penyedia kontennya dan dilindungi oleh undang-undang hak cipta.</li>
-                    <li>Anda dapat melihat, mengunduh, dan mencetak halaman dari situs web untuk penggunaan pribadi Anda, tunduk pada batasan yang ditetapkan di bawah ini dan di tempat lain dalam syarat dan ketentuan ini.</li>
-                    <li>Anda tidak boleh:
-                        <ul>
-                            <li>Menerbitkan ulang materi dari situs web ini (termasuk publikasi di situs web lain).</li>
-                            <li>Menjual, menyewakan, atau mensub-lisensikan materi dari situs web.</li>
-                            <li>Mereproduksi, menduplikasi, menyalin, atau mengeksploitasi materi di situs web kami untuk tujuan komersial.</li>
-                            <li>Mengedit atau memodifikasi materi apa pun di situs web.</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Komentar Pengguna</h3>
-                <ul>
-                    <li>Anda bertanggung jawab penuh atas komentar yang Anda posting. Komentar harus relevan, tidak menyinggung, tidak mengandung ujaran kebencian, dan tidak melanggar hukum.</li>
-                    <li>Kami berhak untuk menghapus komentar apa pun yang kami anggap tidak pantas atau melanggar syarat dan ketentuan ini.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Batasan Tanggung Jawab</h3>
-                <p>Informasi di situs web ini disediakan "apa adanya" tanpa jaminan apa pun, baik tersurat maupun tersirat. Aksara Adil tidak menjamin kelengkapan, keakuratan, keandalan, kesesuaian, atau ketersediaan informasi di situs web.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Perubahan Syarat & Ketentuan</h3>
-                <p>Kami dapat merevisi syarat dan ketentuan ini dari waktu ke waktu. Syarat dan ketentuan yang direvisi akan berlaku untuk penggunaan situs web kami sejak tanggal publikasi syarat dan ketentuan yang direvisi di situs web ini.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Hukum yang Mengatur</h3>
-                <p>Syarat dan ketentuan ini akan diatur oleh dan ditafsirkan sesuai dengan hukum Indonesia, dan setiap perselisihan yang berkaitan dengan syarat dan ketentuan ini akan tunduk pada yurisdiksi eksklusif pengadilan Indonesia.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- About Us Modal -->
-    <div id="aboutUsModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close-button" onclick="closeModal('aboutUsModal')">&times;</button>
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">Tentang Kami</h2>
-            <div class="prose max-w-none text-gray-700">
-                <p><strong>Aksara Adil</strong> adalah media pers independen yang didirikan dengan satu misi utama: menyajikan berita yang jujur, akurat, dan berimbang kepada masyarakat. Di tengah derasnya arus informasi dan disinformasi, kami hadir sebagai mercusuar kebenaran, berpegang teguh pada prinsip-prinsip jurnalisme yang etis dan bertanggung jawab.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Visi Kami</h3>
-                <p>Menjadi sumber informasi terpercaya yang memberdayakan masyarakat dengan pengetahuan yang valid, mendorong pemikiran kritis, dan berkontribusi pada terciptanya masyarakat yang lebih adil dan tercerahkan.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Misi Kami</h3>
-                <ul>
-                    <li>Melakukan verifikasi fakta secara menyeluruh untuk memastikan akurasi setiap berita.</li>
-                    <li>Menyajikan berbagai perspektif untuk mencapai keberimbangan dalam pelaporan.</li>
-                    <li>Melawan hoaks dan disinformasi dengan menyajikan data dan bukti yang kuat.</li>
-                    <li>Mendorong partisipasi publik dalam diskusi yang konstruktif.</li>
-                    <li>Menjaga independensi dari kepentingan politik, ekonomi, atau kelompok tertentu.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Nilai-nilai Kami</h3>
-                <ul>
-                    <li><strong>Integritas:</strong> Kami menjunjung tinggi kejujuran dan etika dalam setiap aspek pekerjaan kami.</li>
-                    <li><strong>Akurasi:</strong> Kami berkomitmen untuk menyajikan informasi yang tepat dan terverifikasi.</li>
-                    <li><strong>Independensi:</strong> Kami bebas dari pengaruh eksternal yang dapat mengganggu objektivitas pelaporan.</li>
-                    <li><strong>Keberimbangan:</strong> Kami berusaha menyajikan semua sisi cerita secara adil.</li>
-                    <li><strong>Transparansi:</strong> Kami terbuka tentang metode dan sumber kami.</li>
-                </ul>
-
-                <p>Kami percaya bahwa akses terhadap informasi yang benar adalah hak setiap warga negara. Oleh karena itu, Aksara Adil berdedikasi untuk menjadi suara yang dapat diandalkan, berpihak pada kebenaran, dan selalu mengutamakan kepentingan publik.</p>
-            </div>
-        </div>
-    </div>
 
     <!-- JavaScript -->
     <script>
@@ -438,16 +239,14 @@
                     title: "Aksara Adil Resmi Meluncur sebagai Media Pers Baru",
                     image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cd120c92-a901-4518-b76a-8e06962bcd88.png",
                     content: "Hari ini menandai peluncuran resmi media pers baru, Aksara Adil, yang berkomitmen untuk menyajikan berita dengan prinsip kejujuran, akurasi, dan keberimbangan. Media ini hadir sebagai alternatif dari media arus utama yang dianggap semakin tidak berpihak pada kebenaran.",
-                    date: new Date().toISOString(),
-                    comments: [] // Tambahkan array komentar
+                    date: new Date().toISOString()
                 },
                 {
                     id: Date.now() + 1,
                     title: "Peresmian Kantor Redaksi Aksara Adil",
                     image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9e1613c2-6247-499f-b30b-4507e4d51c61.png",
                     content: "Kantor redaksi Aksara Adil secara resmi dibuka hari ini di Jakarta. Lokasi strategis ini akan menjadi pusat operasional untuk menghasilkan berita-berita berkualitas yang bisa dipertanggungjawabkan secara hukum dan moral.",
-                    date: new Date().toISOString(),
-                    comments: [] // Tambahkan array komentar
+                    date: new Date().toISOString()
                 }
             ];
             localStorage.setItem('news', JSON.stringify(initialNews));
@@ -556,33 +355,8 @@
                         <div class="text-gray-500 text-sm mb-6">
                             Dipublikasikan pada: ${new Date(selectedNews.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                         </div>
-                        <div class="prose max-w-none mb-8">
+                        <div class="prose max-w-none">
                             <p class="whitespace-pre-line">${selectedNews.content}</p>
-                        </div>
-
-                        <!-- Comment Section -->
-                        <div class="mt-8 border-t pt-8 border-gray-200">
-                            <h4 class="text-xl font-bold mb-4 text-gray-800">Komentar</h4>
-                            <div id="commentsList" class="space-y-4 mb-6">
-                                <!-- Comments will be loaded here -->
-                            </div>
-
-                            <div class="bg-gray-50 p-4 rounded-lg">
-                                <h5 class="text-lg font-semibold mb-3 text-gray-700">Tambahkan Komentar Anda</h5>
-                                <div class="space-y-3">
-                                    <div>
-                                        <label for="commenterName" class="block text-sm font-medium text-gray-700 mb-1">Nama Anda</label>
-                                        <input type="text" id="commenterName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Anonim" value="Anonim">
-                                    </div>
-                                    <div>
-                                        <label for="commentContent" class="block text-sm font-medium text-gray-700 mb-1">Komentar</label>
-                                        <textarea id="commentContent" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tulis komentar Anda di sini..."></textarea>
-                                    </div>
-                                    <button id="submitCommentBtn" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                        Kirim Komentar
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="p-4 border-t border-gray-200 flex justify-end">
@@ -592,23 +366,6 @@
             `;
             
             document.body.appendChild(modal);
-
-            // Display existing comments
-            displayComments(selectedNews.id);
-
-            // Add event listener for comment submission
-            document.getElementById('submitCommentBtn').addEventListener('click', function() {
-                const commenterName = document.getElementById('commenterName').value.trim();
-                const commentContent = document.getElementById('commentContent').value.trim();
-
-                if (commentContent) {
-                    addComment(selectedNews.id, commenterName, commentContent);
-                    document.getElementById('commentContent').value = ''; // Clear comment field
-                    showToast('Komentar berhasil ditambahkan!');
-                } else {
-                    alert('Komentar tidak boleh kosong!');
-                }
-            });
         }
         
         // Fungsi untuk menambah berita
@@ -619,11 +376,10 @@
                 title,
                 image: image || 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6b3e6c38-997a-4bfb-89da-ae4590921ef4.png',
                 content,
-                date: new Date().toISOString(),
-                comments: [] // Inisialisasi array komentar untuk berita baru
+                date: new Date().toISOString()
             };
             news.unshift(newNews);
-            localStorage.setItem('news', JSON.stringify(news));
+            localStorage.setItem('news', JSON.stringify(newNews));
             displayNews();
             
             // Sembunyikan form setelah berhasil menambahkan
@@ -690,58 +446,6 @@
                 const updatedNews = news.filter(item => item.id !== id);
                 localStorage.setItem('news', JSON.stringify(updatedNews));
                 displayNews();
-                showToast('Berita berhasil dihapus!'); // Tambahkan toast notifikasi
-            }
-        }
-
-        // Fungsi untuk menambahkan komentar
-        function addComment(newsId, commenterName, commentContent) {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const newsIndex = news.findIndex(item => item.id === newsId);
-
-            if (newsIndex !== -1) {
-                const newComment = {
-                    id: Date.now(),
-                    name: commenterName || 'Anonim',
-                    content: commentContent,
-                    date: new Date().toISOString()
-                };
-                news[newsIndex].comments.push(newComment);
-                localStorage.setItem('news', JSON.stringify(news));
-                displayComments(newsId); // Refresh comments list
-            }
-        }
-
-        // Fungsi untuk menampilkan komentar
-        function displayComments(newsId) {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const selectedNews = news.find(item => item.id === newsId);
-            const commentsListDiv = document.getElementById('commentsList');
-            commentsListDiv.innerHTML = ''; // Clear existing comments
-
-            if (selectedNews && selectedNews.comments && selectedNews.comments.length > 0) {
-                // Sort comments by date, newest first
-                selectedNews.comments.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-                selectedNews.comments.forEach(comment => {
-                    const commentDiv = document.createElement('div');
-                    commentDiv.className = 'bg-white p-4 rounded-lg shadow-sm border border-gray-100';
-                    commentDiv.innerHTML = `
-                        <div class="flex items-center mb-2">
-                            <div class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 font-bold text-sm mr-3">
-                                ${comment.name.charAt(0).toUpperCase()}
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-800">${comment.name}</p>
-                                <p class="text-xs text-gray-500">${new Date(comment.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-                            </div>
-                        </div>
-                        <p class="text-gray-700">${comment.content}</p>
-                    `;
-                    commentsListDiv.appendChild(commentDiv);
-                });
-            } else {
-                commentsListDiv.innerHTML = '<p class="text-gray-500 text-center">Belum ada komentar. Jadilah yang pertama berkomentar!</p>';
             }
         }
         
@@ -759,32 +463,27 @@
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Fungsi untuk membuka modal
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('show');
-            document.body.style.overflow = 'hidden'; // Mencegah scroll body saat modal terbuka
-        }
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyA2LxdpOys3F4kQp31c78ulIK6pjM4YB2Q",
+  authDomain: "web-ku-be3bc.firebaseapp.com",
+  projectId: "web-ku-be3bc",
+  storageBucket: "web-ku-be3bc.firebasestorage.app",
+  messagingSenderId: "695176941482",
+  appId: "1:695176941482:web:3cbbf8a71e1deb7b1da5d3",
+  measurementId: "G-WMP42Q9GYX"
+};
 
-        // Fungsi untuk menutup modal
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('show');
-            document.body.style.overflow = ''; // Mengembalikan scroll body
-        }
-
-        // Fungsi baru untuk membuka berita terbaru
-        function openLatestNews() {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            if (news.length > 0) {
-                // Berita sudah diurutkan berdasarkan tanggal terbaru di displayNews(),
-                // jadi berita pertama di array adalah yang terbaru.
-                const latestNews = news[0]; 
-                viewNewsDetail(latestNews.id);
-            } else {
-                showToast('Belum ada berita terbaru yang tersedia.');
-            }
-        }
-
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
         // Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
             // Set tahun di footer
@@ -807,7 +506,6 @@
                     // Login berhasil
                     document.getElementById('loginForm').classList.add('hidden');
                     document.getElementById('adminDashboard').classList.remove('hidden');
-                    showToast('Login berhasil!'); // Tambahkan toast notifikasi
                 } else {
                     alert('Username atau password salah!');
                 }
@@ -819,41 +517,11 @@
                 document.getElementById('newsTitle').value = '';
                 document.getElementById('newsImage').value = '';
                 document.getElementById('newsContent').value = '';
-                document.getElementById('submitNewsBtn').textContent = 'Simpan Berita'; // Pastikan teks tombol kembali ke "Simpan Berita"
-                document.getElementById('submitNewsBtn').onclick = function() { // Reset fungsi onclick
-                    const title = document.getElementById('newsTitle').value;
-                    const image = document.getElementById('newsImage').value;
-                    const content = document.getElementById('newsContent').value;
-                    
-                    if (title && content) {
-                        addNews(title, image, content);
-                        showToast('Berita berhasil ditambahkan!'); // Tambahkan toast notifikasi
-                    } else {
-                        alert('Judul dan konten berita harus diisi!');
-                    }
-                };
             });
             
             // Button batal tambah berita
             document.getElementById('cancelAddBtn').addEventListener('click', function() {
                 document.getElementById('addNewsForm').classList.add('hidden');
-                // Reset form fields
-                document.getElementById('newsTitle').value = '';
-                document.getElementById('newsImage').value = '';
-                document.getElementById('newsContent').value = '';
-                // Reset button text and function
-                document.getElementById('submitNewsBtn').textContent = 'Simpan Berita';
-                document.getElementById('submitNewsBtn').onclick = function() {
-                    const title = document.getElementById('newsTitle').value;
-                    const image = document.getElementById('newsImage').value;
-                    const content = document.getElementById('newsContent').value;
-                    
-                    if (title && content) {
-                        addNews(title, image, content);
-                    } else {
-                        alert('Judul dan konten berita harus diisi!');
-                    }
-                };
             });
             
             // Karakter counter
@@ -865,7 +533,7 @@
                 document.getElementById('contentCounter').textContent = this.value.length;
             });
 
-            // Submit berita baru (initial setup)
+            // Submit berita baru
             document.getElementById('submitNewsBtn').addEventListener('click', function() {
                 const title = document.getElementById('newsTitle').value;
                 const image = document.getElementById('newsImage').value;
@@ -873,28 +541,12 @@
                 
                 if (title && content) {
                     addNews(title, image, content);
-                    showToast('Berita berhasil ditambahkan!');
                 } else {
                     alert('Judul dan konten berita harus diisi!');
                 }
-            });
-
-            // Event listeners for footer links to open modals
-            document.getElementById('privacyPolicyLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal('privacyPolicyModal');
-            });
-
-            document.getElementById('termsConditionsLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal('termsConditionsModal');
-            });
-
-            document.getElementById('aboutUsLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal('aboutUsModal');
             });
         });
     </script>
 </body>
 </html>
+
