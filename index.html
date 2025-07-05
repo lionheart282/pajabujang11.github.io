@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aksara Adil - Media Pers yang Berpihak pada Kebenaran</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
     <style>
         :root {
             --primary: #2b6cb0;
@@ -12,11 +15,9 @@
             --dark: #1a365d;
             --light: #ebf8ff;
         }
-        
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
-        
         .toast {
             position: fixed;
             bottom: 20px;
@@ -31,32 +32,25 @@
             transition: all 0.3s ease;
             z-index: 1000;
         }
-        
         .toast.show {
             transform: translateY(0);
             opacity: 1;
         }
-        
         .news-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
         .news-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        
         .admin-panel {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-out;
         }
-        
         .admin-panel.active {
             max-height: 1000px;
         }
-        
-        /* Loading animation */
         .loading {
             display: inline-block;
             width: 20px;
@@ -66,12 +60,9 @@
             border-top-color: #fff;
             animation: spin 1s ease-in-out infinite;
         }
-        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        /* Modal styles */
         .modal {
             position: fixed;
             top: 0;
@@ -87,12 +78,10 @@
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-
         .modal.show {
             opacity: 1;
             visibility: visible;
         }
-
         .modal-content {
             background-color: white;
             padding: 2rem;
@@ -105,11 +94,9 @@
             transform: translateY(-20px);
             transition: transform 0.3s ease;
         }
-
         .modal.show .modal-content {
             transform: translateY(0);
         }
-
         .modal-close-button {
             position: absolute;
             top: 1rem;
@@ -118,7 +105,7 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #4a5568; /* gray-700 */
+            color: #4a5568;
         }
     </style>
 </head>
@@ -146,7 +133,6 @@
 
     <!-- Hero Section -->
     <div class="relative bg-gradient-to-b from-blue-700 to-blue-600 text-white overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/400b2e82-8a4b-4975-9a16-7a07dbc9253b.png'); background-size: cover;"></div>
         <div class="container mx-auto px-4 py-24 md:py-32 relative z-10">
             <div class="max-w-3xl mx-auto text-center">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">Berita Jujur<br><span class="text-yellow-300">Fakta Nyata</span></h2>
@@ -154,7 +140,7 @@
                     <p class="text-lg font-medium">"Informasi terverifikasi, akurat, dan berimbang"</p>
                 </div>
                 <div class="flex flex-wrap justify-center gap-4">
-                    <a href="#" onclick="openLatestNews()" class="bg-white text-blue-700 px-8 py-4 rounded-full font-bold hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <a href="#" onclick="openLatestNews()" class="bg-white text-blue-700 px-8 py-4 rounded-full font-bold hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300">
                         Baca Berita Terbaru
                         <svg class="w-5 h-5 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
@@ -205,7 +191,6 @@
     <div id="adminPanel" class="admin-panel bg-gradient-to-b from-gray-100 to-white shadow-lg">
         <div class="container mx-auto px-4 py-8">
             <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Panel Admin</h2>
-            
             <div id="loginForm" class="max-w-md mx-auto bg-gray-50 p-6 rounded-lg">
                 <h3 class="text-xl font-semibold mb-4 text-gray-700">Login Administrator</h3>
                 <div class="space-y-4">
@@ -222,13 +207,11 @@
                     </button>
                 </div>
             </div>
-            
             <div id="adminDashboard" class="hidden max-w-4xl mx-auto mt-8">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-xl font-semibold text-gray-800">Kelola Berita</h3>
                     <button id="addNewsBtn" class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">Tambah Berita Baru</button>
                 </div>
-                
                 <div id="addNewsForm" class="hidden bg-white shadow-md p-6 mb-8 rounded-lg border border-gray-200">
                     <h4 class="text-lg font-medium mb-4 text-gray-700">Form Tambah Berita</h4>
                     <div class="space-y-4">
@@ -257,7 +240,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="bg-white shadow overflow-hidden rounded-lg">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -268,7 +250,6 @@
                             </tr>
                         </thead>
                         <tbody id="newsList" class="bg-white divide-y divide-gray-200">
-                            <!-- Berita akan dimuat di sini -->
                         </tbody>
                     </table>
                 </div>
@@ -279,9 +260,7 @@
     <!-- News Section -->
     <div id="berita-terbaru" class="container mx-auto px-4 py-12">
         <h2 class="text-2xl font-bold mb-8 text-center text-gray-800">Berita Terbaru</h2>
-        
         <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Berita akan dimuat di sini -->
         </div>
     </div>
 
@@ -321,574 +300,376 @@
             <button class="modal-close-button" onclick="closeModal('privacyPolicyModal')">&times;</button>
             <h2 class="text-2xl font-bold mb-4 text-gray-800">Kebijakan Privasi</h2>
             <div class="prose max-w-none text-gray-700">
-                <p>Selamat datang di Kebijakan Privasi Aksara Adil. Kami sangat menghargai privasi Anda dan berkomitmen untuk melindungi informasi pribadi yang Anda berikan kepada kami.</p>
-                
-                <h3 class="text-xl font-semibold mt-6 mb-2">Informasi yang Kami Kumpulkan</h3>
-                <p>Kami mengumpulkan informasi dalam beberapa cara:</p>
-                <ul>
-                    <li><strong>Informasi yang Anda Berikan:</strong> Ini termasuk nama, alamat email, dan komentar yang Anda kirimkan melalui situs kami.</li>
-                    <li><strong>Data Otomatis:</strong> Kami dapat mengumpulkan data teknis seperti alamat IP, jenis browser, waktu akses, dan halaman yang Anda kunjungi untuk tujuan analitik dan peningkatan layanan.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Bagaimana Kami Menggunakan Informasi Anda</h3>
-                <p>Informasi yang kami kumpulkan digunakan untuk:</p>
-                <ul>
-                    <li>Menyediakan dan meningkatkan layanan kami.</li>
-                    <li>Membalas pertanyaan dan komentar Anda.</li>
-                    <li>Menganalisis penggunaan situs untuk pengembangan konten yang lebih baik.</li>
-                    <li>Memastikan keamanan situs kami.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Pembagian Informasi</h3>
-                <p>Kami tidak akan menjual, menyewakan, atau menukar informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali jika diwajibkan oleh hukum.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Keamanan Data</h3>
-                <p>Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses tidak sah, pengungkapan, perubahan, atau penghancuran.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Perubahan Kebijakan Privasi</h3>
-                <p>Kami dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu. Setiap perubahan akan dipublikasikan di halaman ini. Kami mendorong Anda untuk meninjau kebijakan ini secara berkala.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Hubungi Kami</h3>
-                <p>Jika Anda memiliki pertanyaan tentang Kebijakan Privasi ini, silakan hubungi kami melalui halaman Kontak Kami.</p>
+                <!-- Isi kebijakan privasi kamu di sini -->
+                <p>Selamat datang di Kebijakan Privasi Aksara Adil...</p>
             </div>
         </div>
     </div>
-
     <!-- Terms & Conditions Modal -->
     <div id="termsConditionsModal" class="modal">
         <div class="modal-content">
             <button class="modal-close-button" onclick="closeModal('termsConditionsModal')">&times;</button>
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">Syarat & Ketentuan</h2>
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Syarat &amp; Ketentuan</h2>
             <div class="prose max-w-none text-gray-700">
-                <p>Dengan mengakses dan menggunakan situs web Aksara Adil, Anda setuju untuk terikat oleh Syarat & Ketentuan ini. Jika Anda tidak setuju dengan bagian mana pun dari syarat dan ketentuan ini, Anda tidak boleh menggunakan situs web kami.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Penggunaan Konten</h3>
-                <ul>
-                    <li>Semua konten yang dipublikasikan di Aksara Adil, termasuk teks, gambar, grafik, dan video, adalah milik Aksara Adil atau penyedia kontennya dan dilindungi oleh undang-undang hak cipta.</li>
-                    <li>Anda dapat melihat, mengunduh, dan mencetak halaman dari situs web untuk penggunaan pribadi Anda, tunduk pada batasan yang ditetapkan di bawah ini dan di tempat lain dalam syarat dan ketentuan ini.</li>
-                    <li>Anda tidak boleh:
-                        <ul>
-                            <li>Menerbitkan ulang materi dari situs web ini (termasuk publikasi di situs web lain).</li>
-                            <li>Menjual, menyewakan, atau mensub-lisensikan materi dari situs web.</li>
-                            <li>Mereproduksi, menduplikasi, menyalin, atau mengeksploitasi materi di situs web kami untuk tujuan komersial.</li>
-                            <li>Mengedit atau memodifikasi materi apa pun di situs web.</li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Komentar Pengguna</h3>
-                <ul>
-                    <li>Anda bertanggung jawab penuh atas komentar yang Anda posting. Komentar harus relevan, tidak menyinggung, tidak mengandung ujaran kebencian, dan tidak melanggar hukum.</li>
-                    <li>Kami berhak untuk menghapus komentar apa pun yang kami anggap tidak pantas atau melanggar syarat dan ketentuan ini.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Batasan Tanggung Jawab</h3>
-                <p>Informasi di situs web ini disediakan "apa adanya" tanpa jaminan apa pun, baik tersurat maupun tersirat. Aksara Adil tidak menjamin kelengkapan, keakuratan, keandalan, kesesuaian, atau ketersediaan informasi di situs web.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Perubahan Syarat & Ketentuan</h3>
-                <p>Kami dapat merevisi syarat dan ketentuan ini dari waktu ke waktu. Syarat dan ketentuan yang direvisi akan berlaku untuk penggunaan situs web kami sejak tanggal publikasi syarat dan ketentuan yang direvisi di situs web ini.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Hukum yang Mengatur</h3>
-                <p>Syarat dan ketentuan ini akan diatur oleh dan ditafsirkan sesuai dengan hukum Indonesia, dan setiap perselisihan yang berkaitan dengan syarat dan ketentuan ini akan tunduk pada yurisdiksi eksklusif pengadilan Indonesia.</p>
+                <!-- Isi syarat & ketentuan kamu di sini -->
+                <p>Dengan mengakses dan menggunakan situs web Aksara Adil...</p>
             </div>
         </div>
     </div>
-
     <!-- About Us Modal -->
     <div id="aboutUsModal" class="modal">
         <div class="modal-content">
             <button class="modal-close-button" onclick="closeModal('aboutUsModal')">&times;</button>
             <h2 class="text-2xl font-bold mb-4 text-gray-800">Tentang Kami</h2>
             <div class="prose max-w-none text-gray-700">
-                <p><strong>Aksara Adil</strong> adalah media pers independen yang didirikan dengan satu misi utama: menyajikan berita yang jujur, akurat, dan berimbang kepada masyarakat. Di tengah derasnya arus informasi dan disinformasi, kami hadir sebagai mercusuar kebenaran, berpegang teguh pada prinsip-prinsip jurnalisme yang etis dan bertanggung jawab.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Visi Kami</h3>
-                <p>Menjadi sumber informasi terpercaya yang memberdayakan masyarakat dengan pengetahuan yang valid, mendorong pemikiran kritis, dan berkontribusi pada terciptanya masyarakat yang lebih adil dan tercerahkan.</p>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Misi Kami</h3>
-                <ul>
-                    <li>Melakukan verifikasi fakta secara menyeluruh untuk memastikan akurasi setiap berita.</li>
-                    <li>Menyajikan berbagai perspektif untuk mencapai keberimbangan dalam pelaporan.</li>
-                    <li>Melawan hoaks dan disinformasi dengan menyajikan data dan bukti yang kuat.</li>
-                    <li>Mendorong partisipasi publik dalam diskusi yang konstruktif.</li>
-                    <li>Menjaga independensi dari kepentingan politik, ekonomi, atau kelompok tertentu.</li>
-                </ul>
-
-                <h3 class="text-xl font-semibold mt-6 mb-2">Nilai-nilai Kami</h3>
-                <ul>
-                    <li><strong>Integritas:</strong> Kami menjunjung tinggi kejujuran dan etika dalam setiap aspek pekerjaan kami.</li>
-                    <li><strong>Akurasi:</strong> Kami berkomitmen untuk menyajikan informasi yang tepat dan terverifikasi.</li>
-                    <li><strong>Independensi:</strong> Kami bebas dari pengaruh eksternal yang dapat mengganggu objektivitas pelaporan.</li>
-                    <li><strong>Keberimbangan:</strong> Kami berusaha menyajikan semua sisi cerita secara adil.</li>
-                    <li><strong>Transparansi:</strong> Kami terbuka tentang metode dan sumber kami.</li>
-                </ul>
-
-                <p>Kami percaya bahwa akses terhadap informasi yang benar adalah hak setiap warga negara. Oleh karena itu, Aksara Adil berdedikasi untuk menjadi suara yang dapat diandalkan, berpihak pada kebenaran, dan selalu mengutamakan kepentingan publik.</p>
+                <!-- Isi tentang kami kamu di sini -->
+                <p><strong>Aksara Adil</strong> adalah media pers independen...</p>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        // Inisialisasi data jika belum ada
-        if (!localStorage.getItem('news')) {
-            const initialNews = [
-                {
-                    id: Date.now(),
-                    title: "Aksara Adil Resmi Meluncur sebagai Media Pers Baru",
-                    image: "https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cd120c92-a901-4518-b76a-8e06962bcd88.png",
-                    content: "Hari ini menandai peluncuran resmi media pers baru, Aksara Adil, yang berkomitmen untuk menyajikan berita dengan prinsip kejujuran, akurasi, dan keberimbangan. Media ini hadir sebagai alternatif dari media arus utama yang dianggap semakin tidak berpihak pada kebenaran.",
-                    date: new Date().toISOString(),
-                    comments: [] // Tambahkan array komentar
-                },
-                
-            ];
-            localStorage.setItem('news', JSON.stringify(initialNews));
+    <!-- SCRIPT LOGIKA FIREBASE -->
+     <script>
+// KONFIGURASI FIREBASE
+const firebaseConfig = {
+    apiKey: "AIzaSyDyw1lFJpy7xJ2lJCUUHLRLZcuF2PV40Mw",
+    authDomain: "aksara-adil.firebaseapp.com",
+    databaseURL: "https://aksara-adil-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "aksara-adil",
+    storageBucket: "aksara-adil.appspot.com",
+    messagingSenderId: "690320485481",
+    appId: "1:690320485481:web:7e9c1c05273f325b2406f8",
+    measurementId: "G-VQ1R4QS825"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// CRUD BERITA
+function displayNews() {
+    const newsContainer = document.getElementById('newsContainer');
+    newsContainer.innerHTML = '<p class="col-span-3 text-center text-gray-500">Memuat...</p>';
+    const adminNewsList = document.getElementById('newsList');
+    if (adminNewsList) adminNewsList.innerHTML = '';
+    db.ref('news').orderByChild('date').once('value', function(snapshot) {
+        const news = [];
+        snapshot.forEach(child => {
+            news.push({ id: child.key, ...child.val() });
+        });
+        news.reverse();
+        newsContainer.innerHTML = '';
+        if (news.length === 0) {
+            newsContainer.innerHTML = '<p class="col-span-3 text-center text-gray-500">Belum ada berita tersedia.</p>';
+            if (adminNewsList) adminNewsList.innerHTML = '<tr><td colspan="3" class="px-6 py-4 text-center text-gray-500">Belum ada berita tersedia.</td></tr>';
+            return;
         }
-
-        // Fungsi untuk menampilkan berita
-        function displayNews() {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const newsContainer = document.getElementById('newsContainer');
-            newsContainer.innerHTML = '';
-            
-            const adminNewsList = document.getElementById('newsList');
-            
-            if (news.length === 0) {
-                newsContainer.innerHTML = '<p class="col-span-3 text-center text-gray-500">Belum ada berita tersedia.</p>';
-                if (adminNewsList) {
-                    adminNewsList.innerHTML = '<tr><td colspan="3" class="px-6 py-4 text-center text-gray-500">Belum ada berita tersedia.</td></tr>';
-                }
-                return;
-            }
-            
-            // Urutkan berita berdasarkan tanggal terbaru
-            news.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            // Tampilkan di halaman depan
-            news.forEach(item => {
-                const newsCard = document.createElement('div');
-                newsCard.className = 'news-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group';
-                newsCard.innerHTML = `
-                    <div class="h-56 overflow-hidden relative">
-                        <img src="${item.image}" alt="${'Gambar berita: ' + item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale Austin Dylan108" onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b5f06dd0-bb70-4033-b001-19b9c6dbb449.png'">
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent p-4">
-                            <span class="text-xs text-white bg-blue-600 px-3 py-1 rounded-full">Berita Terkini</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex items-center text-xs text-gray-500 mb-3">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            ${new Date(item.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                        </div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800 line-clamp-2 group-hover:text-blue-600 transition-colors">${item.title}</h3>
-                        <p class="text-gray-600 mb-4 line-clamp-3">${item.content}</p>
-                        <button onclick="viewNewsDetail(${item.id})" class="flex items-center text-blue-600 hover:text-blue-800 font-medium group">
-                            Baca Selengkapnya
-                            <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
-                    </div>
-                `;
-                newsContainer.appendChild(newsCard);
-            });
-            
-            // Tampilkan di admin panel jika ada
-            if (adminNewsList) {
-                adminNewsList.innerHTML = '';
-                news.forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">${item.title}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-500">${new Date(item.date).toLocaleDateString('id-ID')}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <button onclick="editNews(${item.id})" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
-                            <button onclick="deleteNews(${item.id})" class="text-red-600 hover:text-red-900">Hapus</button>
-                            <button onclick="viewNewsDetail(${item.id})" class="text-blue-600 hover:text-blue-900 ml-3">Lihat</button>
-                        </td>
-                    `;
-                    adminNewsList.appendChild(row);
-                });
-            }
-        }
-        
-        // Fungsi untuk menampilkan detail berita
-        function viewNewsDetail(id) {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const selectedNews = news.find(item => item.id === id);
-            
-            if (!selectedNews) {
-                alert('Berita tidak ditemukan!');
-                return;
-            }
-            
-            // Buat modal untuk menampilkan detail berita
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4';
-            modal.innerHTML = `
-                <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-                    <div class="p-4 border-b border-gray-200 flex justify-between items-center">
-                        <h3 class="text-xl font-semibold">${selectedNews.title}</h3>
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-gray-500 hover:text-gray-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="p-4">
-                        <div class="mb-6">
-                            <img src="${selectedNews.image}" alt="${'Gambar berita: ' + selectedNews.title}" class="w-full h-auto rounded-lg object-cover" onerror="this.src='https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9f0e1a53-4dc9-4502-8d16-5b13c08a6862.png'">
-                        </div>
-                        <div class="text-gray-500 text-sm mb-6">
-                            Dipublikasikan pada: ${new Date(selectedNews.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                        </div>
-                        <div class="prose max-w-none mb-8">
-                            <p class="whitespace-pre-line">${selectedNews.content}</p>
-                        </div>
-
-                        <!-- Comment Section -->
-                        <div class="mt-8 border-t pt-8 border-gray-200">
-                            <h4 class="text-xl font-bold mb-4 text-gray-800">Komentar</h4>
-                            <div id="commentsList" class="space-y-4 mb-6">
-                                <!-- Comments will be loaded here -->
-                            </div>
-
-                            <div class="bg-gray-50 p-4 rounded-lg">
-                                <h5 class="text-lg font-semibold mb-3 text-gray-700">Tambahkan Komentar Anda</h5>
-                                <div class="space-y-3">
-                                    <div>
-                                        <label for="commenterName" class="block text-sm font-medium text-gray-700 mb-1">Nama Anda</label>
-                                        <input type="text" id="commenterName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Anonim" value="Anonim">
-                                    </div>
-                                    <div>
-                                        <label for="commentContent" class="block text-sm font-medium text-gray-700 mb-1">Komentar</label>
-                                        <textarea id="commentContent" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tulis komentar Anda di sini..."></textarea>
-                                    </div>
-                                    <button id="submitCommentBtn" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                        Kirim Komentar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-4 border-t border-gray-200 flex justify-end">
-                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tutup</button>
+        news.forEach(item => {
+            const newsCard = document.createElement('div');
+            newsCard.className = 'news-card bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group';
+            newsCard.innerHTML = `
+                <div class="h-56 overflow-hidden relative">
+                    <img src="${item.image}" alt="Gambar berita: ${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/800x400'">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent p-4">
+                        <span class="text-xs text-white bg-blue-600 px-3 py-1 rounded-full">Berita Terkini</span>
                     </div>
                 </div>
+                <div class="p-5">
+                    <div class="flex items-center text-xs text-gray-500 mb-3">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        ${new Date(item.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-800 line-clamp-2 group-hover:text-blue-600 transition-colors">${item.title}</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">${item.content}</p>
+                    <button onclick="viewNewsDetail('${item.id}')" class="flex items-center text-blue-600 hover:text-blue-800 font-medium group">
+                        Baca Selengkapnya
+                        <svg class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                </div>
             `;
-            
-            document.body.appendChild(modal);
-
-            // Display existing comments
-            displayComments(selectedNews.id);
-
-            // Add event listener for comment submission
-            document.getElementById('submitCommentBtn').addEventListener('click', function() {
-                const commenterName = document.getElementById('commenterName').value.trim();
-                const commentContent = document.getElementById('commentContent').value.trim();
-
-                if (commentContent) {
-                    addComment(selectedNews.id, commenterName, commentContent);
-                    document.getElementById('commentContent').value = ''; // Clear comment field
-                    showToast('Komentar berhasil ditambahkan!');
-                } else {
-                    alert('Komentar tidak boleh kosong!');
-                }
+            newsContainer.appendChild(newsCard);
+        });
+        if (adminNewsList) {
+            adminNewsList.innerHTML = '';
+            news.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm font-medium text-gray-900">${item.title}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-500">${new Date(item.date).toLocaleDateString('id-ID')}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <button onclick="editNews('${item.id}')" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</button>
+                        <button onclick="deleteNews('${item.id}')" class="text-red-600 hover:text-red-900">Hapus</button>
+                        <button onclick="viewNewsDetail('${item.id}')" class="text-blue-600 hover:text-blue-900 ml-3">Lihat</button>
+                    </td>
+                `;
+                adminNewsList.appendChild(row);
             });
         }
-        
-        // Fungsi untuk menambah berita
-        function addNews(title, image, content) {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const newNews = {
-                id: Date.now(),
-                title,
-                image: image || 'https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/6b3e6c38-997a-4bfb-89da-ae4590921ef4.png',
-                content,
-                date: new Date().toISOString(),
-                comments: [] // Inisialisasi array komentar untuk berita baru
-            };
-            news.unshift(newNews);
-            localStorage.setItem('news', JSON.stringify(news));
-            displayNews();
-            
-            // Sembunyikan form setelah berhasil menambahkan
-            document.getElementById('addNewsForm').classList.add('hidden');
-            document.getElementById('newsTitle').value = '';
-            document.getElementById('newsImage').value = '';
-            document.getElementById('newsContent').value = '';
-            
-            return newNews;
-        }
-        
-        // Fungsi untuk mengedit berita
-        function editNews(id) {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const selectedNews = news.find(item => item.id === id);
-            
-            if (!selectedNews) {
-                alert('Berita tidak ditemukan!');
-                return;
-            }
-            
-            // Isi form dengan data yang ada
-            document.getElementById('newsTitle').value = selectedNews.title;
-            document.getElementById('newsImage').value = selectedNews.image;
-            document.getElementById('newsContent').value = selectedNews.content;
-            
-            // Tampilkan form edit
-            document.getElementById('addNewsForm').classList.remove('hidden');
-            document.getElementById('submitNewsBtn').textContent = 'Perbarui Berita';
-            document.getElementById('submitNewsBtn').onclick = function() {
-                selectedNews.title = document.getElementById('newsTitle').value;
-                selectedNews.image = document.getElementById('newsImage').value;
-                selectedNews.content = document.getElementById('newsContent').value;
-                selectedNews.date = new Date().toISOString(); // Perbarui tanggal edit
-                
-                localStorage.setItem('news', JSON.stringify(news));
+    });
+}
+
+function addNews(title, image, content) {
+    const newNewsRef = db.ref('news').push();
+    newNewsRef.set({
+        title,
+        image: image || 'https://placehold.co/800x400',
+        content,
+        date: new Date().toISOString(),
+        comments: []
+    }, displayNews);
+    document.getElementById('addNewsForm').classList.add('hidden');
+    document.getElementById('newsTitle').value = '';
+    document.getElementById('newsImage').value = '';
+    document.getElementById('newsContent').value = '';
+}
+
+function editNews(id) {
+    db.ref('news/' + id).once('value', function(snapshot) {
+        const selectedNews = snapshot.val();
+        if (!selectedNews) return alert('Berita tidak ditemukan!');
+        document.getElementById('newsTitle').value = selectedNews.title;
+        document.getElementById('newsImage').value = selectedNews.image;
+        document.getElementById('newsContent').value = selectedNews.content;
+        document.getElementById('addNewsForm').classList.remove('hidden');
+        document.getElementById('submitNewsBtn').textContent = 'Perbarui Berita';
+        document.getElementById('submitNewsBtn').onclick = function() {
+            db.ref('news/' + id).update({
+                title: document.getElementById('newsTitle').value,
+                image: document.getElementById('newsImage').value,
+                content: document.getElementById('newsContent').value,
+                date: new Date().toISOString()
+            }, function() {
                 displayNews();
                 showToast('Berita berhasil diperbarui!');
-                
-                // Reset form
                 document.getElementById('addNewsForm').classList.add('hidden');
                 document.getElementById('submitNewsBtn').textContent = 'Simpan Berita';
-                document.getElementById('submitNewsBtn').onclick = function() {
-                    const title = document.getElementById('newsTitle').value;
-                    const image = document.getElementById('newsImage').value;
-                    const content = document.getElementById('newsContent').value;
-                    
-                    if (title && content) {
-                        addNews(title, image, content);
-                    } else {
-                        alert('Judul dan konten berita harus diisi!');
-                    }
-                };
-            };
-        }
-        
-        // Fungsi untuk menghapus berita
-        function deleteNews(id) {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const selectedNews = news.find(item => item.id === id);
-            
-            if (confirm(`Apakah Anda yakin ingin menghapus berita:\n"${selectedNews.title}"?`)) {
-                const news = JSON.parse(localStorage.getItem('news')) || [];
-                const updatedNews = news.filter(item => item.id !== id);
-                localStorage.setItem('news', JSON.stringify(updatedNews));
-                displayNews();
-                showToast('Berita berhasil dihapus!'); // Tambahkan toast notifikasi
-            }
-        }
+                document.getElementById('submitNewsBtn').onclick = defaultAddNewsHandler;
+            });
+        };
+    });
+}
+function defaultAddNewsHandler() {
+    const title = document.getElementById('newsTitle').value;
+    const image = document.getElementById('newsImage').value;
+    const content = document.getElementById('newsContent').value;
+    if (title && content) {
+        addNews(title, image, content);
+    } else {
+        alert('Judul dan konten berita harus diisi!');
+    }
+}
 
-        // Fungsi untuk menambahkan komentar
-        function addComment(newsId, commenterName, commentContent) {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const newsIndex = news.findIndex(item => item.id === newsId);
+function deleteNews(id) {
+    if (!confirm("Hapus berita ini?")) return;
+    db.ref('news/' + id).remove(function() {
+        displayNews();
+        showToast('Berita berhasil dihapus!');
+    });
+}
 
-            if (newsIndex !== -1) {
-                const newComment = {
-                    id: Date.now(),
-                    name: commenterName || 'Anonim',
-                    content: commentContent,
-                    date: new Date().toISOString()
-                };
-                news[newsIndex].comments.push(newComment);
-                localStorage.setItem('news', JSON.stringify(news));
-                displayComments(newsId); // Refresh comments list
-            }
-        }
-
-        // Fungsi untuk menampilkan komentar
-        function displayComments(newsId) {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            const selectedNews = news.find(item => item.id === newsId);
-            const commentsListDiv = document.getElementById('commentsList');
-            commentsListDiv.innerHTML = ''; // Clear existing comments
-
-            if (selectedNews && selectedNews.comments && selectedNews.comments.length > 0) {
-                // Sort comments by date, newest first
-                selectedNews.comments.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-                selectedNews.comments.forEach(comment => {
-                    const commentDiv = document.createElement('div');
-                    commentDiv.className = 'bg-white p-4 rounded-lg shadow-sm border border-gray-100';
-                    commentDiv.innerHTML = `
-                        <div class="flex items-center mb-2">
-                            <div class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 font-bold text-sm mr-3">
-                                ${comment.name.charAt(0).toUpperCase()}
-                            </div>
-                            <div>
-                                <p class="font-semibold text-gray-800">${comment.name}</p>
-                                <p class="text-xs text-gray-500">${new Date(comment.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+// DETAIL BERITA & KOMENTAR
+function viewNewsDetail(id) {
+    db.ref('news/' + id).once('value', function(snapshot) {
+        const selectedNews = snapshot.val();
+        if (!selectedNews) return alert('Berita tidak ditemukan!');
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4';
+        modal.innerHTML = `
+            <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                    <h3 class="text-xl font-semibold">${selectedNews.title}</h3>
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-gray-500 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="p-4">
+                    <div class="mb-6">
+                        <img src="${selectedNews.image}" alt="Gambar berita: ${selectedNews.title}" class="w-full h-auto rounded-lg object-cover" onerror="this.src='https://placehold.co/800x400'">
+                    </div>
+                    <div class="text-gray-500 text-sm mb-6">
+                        Dipublikasikan pada: ${new Date(selectedNews.date).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    </div>
+                    <div class="prose max-w-none mb-8">
+                        <p class="whitespace-pre-line">${selectedNews.content}</p>
+                    </div>
+                    <div class="mt-8 border-t pt-8 border-gray-200">
+                        <h4 class="text-xl font-bold mb-4 text-gray-800">Komentar</h4>
+                        <div id="commentsList" class="space-y-4 mb-6"></div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h5 class="text-lg font-semibold mb-3 text-gray-700">Tambahkan Komentar Anda</h5>
+                            <div class="space-y-3">
+                                <div>
+                                    <label for="commenterName" class="block text-sm font-medium text-gray-700 mb-1">Nama Anda</label>
+                                    <input type="text" id="commenterName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nama (opsional)">
+                                </div>
+                                <div>
+                                    <label for="commentContent" class="block text-sm font-medium text-gray-700 mb-1">Komentar</label>
+                                    <textarea id="commentContent" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tulis komentar Anda..."></textarea>
+                                </div>
+                                <button id="submitCommentBtn" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                    Kirim Komentar
+                                </button>
                             </div>
                         </div>
-                        <p class="text-gray-700">${comment.content}</p>
-                    `;
-                    commentsListDiv.appendChild(commentDiv);
-                });
+                    </div>
+                </div>
+                <div class="p-4 border-t border-gray-200 flex justify-end">
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tutup</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        displayComments(id);
+        document.getElementById('submitCommentBtn').addEventListener('click', function() {
+            const commenterName = document.getElementById('commenterName').value.trim();
+            const commentContent = document.getElementById('commentContent').value.trim();
+            if (commentContent) {
+                addComment(id, commenterName, commentContent);
+                document.getElementById('commentContent').value = '';
+                showToast('Komentar berhasil ditambahkan!');
             } else {
-                commentsListDiv.innerHTML = '<p class="text-gray-500 text-center">Belum ada komentar. Jadilah yang pertama berkomentar!</p>';
+                alert('Komentar tidak boleh kosong!');
             }
-        }
-        
-        // Fungsi untuk menampilkan notifikasi toast
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => toast.classList.add('show'), 100);
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // Fungsi untuk membuka modal
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('show');
-            document.body.style.overflow = 'hidden'; // Mencegah scroll body saat modal terbuka
-        }
-
-        // Fungsi untuk menutup modal
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('show');
-            document.body.style.overflow = ''; // Mengembalikan scroll body
-        }
-
-        // Fungsi baru untuk membuka berita terbaru
-        function openLatestNews() {
-            const news = JSON.parse(localStorage.getItem('news')) || [];
-            if (news.length > 0) {
-                // Berita sudah diurutkan berdasarkan tanggal terbaru di displayNews(),
-                // jadi berita pertama di array adalah yang terbaru.
-                const latestNews = news[0]; 
-                viewNewsDetail(latestNews.id);
-            } else {
-                showToast('Belum ada berita terbaru yang tersedia.');
-            }
-        }
-
-        // Event Listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set tahun di footer
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
-            
-            // Tampilkan berita
-            displayNews();
-            
-            // Toggle admin panel
-            document.getElementById('adminToggle').addEventListener('click', function() {
-                document.getElementById('adminPanel').classList.toggle('active');
-            });
-            
-            // Login admin
-            document.getElementById('loginBtn').addEventListener('click', function() {
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                if (username === '23100006' && password === 'aksjaya@2025') {
-                    // Login berhasil
-                    document.getElementById('loginForm').classList.add('hidden');
-                    document.getElementById('adminDashboard').classList.remove('hidden');
-                    showToast('Login berhasil!'); // Tambahkan toast notifikasi
-                } else {
-                    alert('Username atau password salah!');
-                }
-            });
-            
-            // Button tambah berita baru
-            document.getElementById('addNewsBtn').addEventListener('click', function() {
-                document.getElementById('addNewsForm').classList.remove('hidden');
-                document.getElementById('newsTitle').value = '';
-                document.getElementById('newsImage').value = '';
-                document.getElementById('newsContent').value = '';
-                document.getElementById('submitNewsBtn').textContent = 'Simpan Berita'; // Pastikan teks tombol kembali ke "Simpan Berita"
-                document.getElementById('submitNewsBtn').onclick = function() { // Reset fungsi onclick
-                    const title = document.getElementById('newsTitle').value;
-                    const image = document.getElementById('newsImage').value;
-                    const content = document.getElementById('newsContent').value;
-                    
-                    if (title && content) {
-                        addNews(title, image, content);
-                        showToast('Berita berhasil ditambahkan!'); // Tambahkan toast notifikasi
-                    } else {
-                        alert('Judul dan konten berita harus diisi!');
-                    }
-                };
-            });
-            
-            // Button batal tambah berita
-            document.getElementById('cancelAddBtn').addEventListener('click', function() {
-                document.getElementById('addNewsForm').classList.add('hidden');
-                // Reset form fields
-                document.getElementById('newsTitle').value = '';
-                document.getElementById('newsImage').value = '';
-                document.getElementById('newsContent').value = '';
-                // Reset button text and function
-                document.getElementById('submitNewsBtn').textContent = 'Simpan Berita';
-                document.getElementById('submitNewsBtn').onclick = function() {
-                    const title = document.getElementById('newsTitle').value;
-                    const image = document.getElementById('newsImage').value;
-                    const content = document.getElementById('newsContent').value;
-                    
-                    if (title && content) {
-                        addNews(title, image, content);
-                    } else {
-                        alert('Judul dan konten berita harus diisi!');
-                    }
-                };
-            });
-            
-            // Karakter counter
-            document.getElementById('newsTitle').addEventListener('input', function() {
-                document.getElementById('titleCounter').textContent = this.value.length;
-            });
-            
-            document.getElementById('newsContent').addEventListener('input', function() {
-                document.getElementById('contentCounter').textContent = this.value.length;
-            });
-
-            // Submit berita baru (initial setup)
-            document.getElementById('submitNewsBtn').addEventListener('click', function() {
-                const title = document.getElementById('newsTitle').value;
-                const image = document.getElementById('newsImage').value;
-                const content = document.getElementById('newsContent').value;
-                
-                if (title && content) {
-                    addNews(title, image, content);
-                    showToast('Berita berhasil ditambahkan!');
-                } else {
-                    alert('Judul dan konten berita harus diisi!');
-                }
-            });
-            
-
-            // Event listeners for footer links to open modals
-            document.getElementById('privacyPolicyLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal('privacyPolicyModal');
-            });
-
-            document.getElementById('termsConditionsLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal('termsConditionsModal');
-            });
-
-            document.getElementById('aboutUsLink').addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal('aboutUsModal');
-            });
         });
-    </script>
+    });
+}
+function addComment(newsId, commenterName, commentContent) {
+    db.ref('news/' + newsId + '/comments').once('value', function(snapshot) {
+        let comments = snapshot.val() || [];
+        comments.push({
+            id: Date.now(),
+            name: commenterName || 'Anonim',
+            content: commentContent,
+            date: new Date().toISOString()
+        });
+        db.ref('news/' + newsId + '/comments').set(comments, function() {
+            displayComments(newsId);
+        });
+    });
+}
+function displayComments(newsId) {
+    db.ref('news/' + newsId + '/comments').once('value', function(snapshot) {
+        const comments = snapshot.val() || [];
+        const commentsListDiv = document.getElementById('commentsList');
+        commentsListDiv.innerHTML = '';
+        if (comments.length > 0) {
+            comments.slice().reverse().forEach(comment => {
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'bg-white p-4 rounded-lg shadow-sm border border-gray-100';
+                commentDiv.innerHTML = `
+                    <div class="flex items-center mb-2">
+                        <div class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 font-bold text-sm mr-3">
+                            ${comment.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">${comment.name}</p>
+                            <p class="text-xs text-gray-500">${new Date(comment.date).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">${comment.content}</p>
+                `;
+                commentsListDiv.appendChild(commentDiv);
+            });
+        } else {
+            commentsListDiv.innerHTML = '<p class="text-gray-500 text-center">Belum ada komentar. Jadilah yang pertama berkomentar!</p>';
+        }
+    });
+}
+
+// TOAST & MODAL
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 100);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+function openModal(modalId) {
+    document.getElementById(modalId).classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('show');
+    document.body.style.overflow = '';
+}
+function openLatestNews() {
+    db.ref('news').orderByChild('date').limitToLast(1).once('value', function(snapshot) {
+        let latestId = null;
+        snapshot.forEach(child => { latestId = child.key; });
+        if (latestId) {
+            viewNewsDetail(latestId);
+        } else {
+            showToast('Belum ada berita terbaru yang tersedia.');
+        }
+    });
+}
+
+// EVENT LISTENERS
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    displayNews();
+    document.getElementById('adminToggle').addEventListener('click', function() {
+        document.getElementById('adminPanel').classList.toggle('active');
+    });
+    document.getElementById('loginBtn').addEventListener('click', function() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        if (username === '23100006' && password === 'aksjaya@2025') {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.remove('hidden');
+            showToast('Login berhasil!');
+        } else {
+            alert('Username atau password salah!');
+        }
+    });
+    document.getElementById('addNewsBtn').addEventListener('click', function() {
+        document.getElementById('addNewsForm').classList.remove('hidden');
+        document.getElementById('newsTitle').value = '';
+        document.getElementById('newsImage').value = '';
+        document.getElementById('newsContent').value = '';
+        document.getElementById('submitNewsBtn').textContent = 'Simpan Berita';
+        document.getElementById('submitNewsBtn').onclick = defaultAddNewsHandler;
+    });
+    document.getElementById('cancelAddBtn').addEventListener('click', function() {
+        document.getElementById('addNewsForm').classList.add('hidden');
+        document.getElementById('newsTitle').value = '';
+        document.getElementById('newsImage').value = '';
+        document.getElementById('newsContent').value = '';
+        document.getElementById('submitNewsBtn').textContent = 'Simpan Berita';
+        document.getElementById('submitNewsBtn').onclick = defaultAddNewsHandler;
+    });
+    document.getElementById('newsTitle').addEventListener('input', function() {
+        document.getElementById('titleCounter').textContent = this.value.length;
+    });
+    document.getElementById('newsContent').addEventListener('input', function() {
+        document.getElementById('contentCounter').textContent = this.value.length;
+    });
+    document.getElementById('submitNewsBtn').addEventListener('click', defaultAddNewsHandler);
+    document.getElementById('privacyPolicyLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal('privacyPolicyModal');
+    });
+    document.getElementById('termsConditionsLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal('termsConditionsModal');
+    });
+    document.getElementById('aboutUsLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        openModal('aboutUsModal');
+    });
+});
+</script> 
 </body>
 </html>
